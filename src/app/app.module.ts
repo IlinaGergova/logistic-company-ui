@@ -18,6 +18,7 @@ import { RouterLink } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { OfficeComponent } from './office/office.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
     CompanyComponent,
     LoginPageComponent,
     AdminComponent,
-    HomePageComponent
+    HomePageComponent,
+    OfficeComponent
   ],
   imports: [
     CommonModule,

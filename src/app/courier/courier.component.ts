@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-courier',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./courier.component.css', '/src/styles.css']
 })
 export class CourierComponent {
-
+  @Input() companyId: number;
 }

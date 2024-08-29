@@ -1,1 +1,12 @@
-<p>company works!</p>
+<div *ngIf="company">
+    <div class="info">
+      <h1>{{ company.name }}</h1>
+      <div>Address: {{ company.address }}</div>
+      <div>Contact: {{ company.contact }}</div>
+    </div>
+  
+   <app-office [companyId]="company.id"></app-office>
+   <app-office-worker [companyId]="company.id"></app-office-worker>
+   <app-courier [companyId]="company.id"></app-courier>
+  </div>
+  

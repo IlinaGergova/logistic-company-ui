@@ -1,0 +1,79 @@
+<h1>Offices</h1>
+<div id="office-list">
+  <div id="table-header">
+    <div>Id</div>
+    <div>Name</div>
+    <div>Address</div>
+    <div>Contact</div>
+    <div>Info</div>
+    <div *ngIf="userRole === 'Admin' || userRole === 'OfficeWorker'">Actions</div>
+</div>
+    <div id="office-wrapper" *ngFor="let office of offices">
+      <div>
+        <div>{{ office.id }}</div>
+        <a [routerLink]="'/office-page/' + office.id">{{ office.name }}</a>
+        <div>{{ office.address }}</div>
+        <div>{{ office.contact }}</div>
+        <div>{{ office.info }}</div>
+        <div *ngIf="userRole === 'Admin' || userRole === 'OfficeWorker'">
+          <button (click)="edit(office)" class="action-button"><span class="material-icons">edit</span></button>
+          <button (click)="delete(office.id)" class="action-button delete-button"><span class="material-icons">delete</span></button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="editOfficeMode" id="edit-office">
+      <form (ngSubmit)="editOfficeForm(editOfficeFrom, currentEditOffice.id)" #editOfficeFrom="ngForm">
+        <div>
+          <label>Name: </label>
+          <input name="officeName" required [ngModel]="currentEditOffice.name">
+        </div>
+        <div>
+          <label>Address: </label>
+          <input ngModel name="officeAddress" required  [ngModel]="currentEditOffice.address">
+        </div>
+       <div>
+        <label>Contact: </label>
+        <input ngModel name="officeContact" required  [ngModel]="currentEditOffice.contact">
+       </div>
+       <div>
+        <label>Info: </label>
+        <input ngModel name="officeInfo" required  [ngModel]="currentEditOffice.info">
+       </div>
+        <div>
+          <button class="action-button text-button" type="submit" [disabled]="!editOfficeFrom.valid">Save</button>
+          <button class="action-button text-button cancel-button" (click)="editOfficeMode = false">Cancel</button>
+        </div>
+      </form>
+      <div *ngIf="error">{{ error }}</div>
+  </div>
+</div>
+
+<button *ngIf="userRole === 'Admin' || userRole === 'OfficeWorker'" class="action-button add-button" (click)="createOfficeMode = true"><span class="material-icons">add</span> add office</button>
+<div *ngIf="createOfficeMode" id="create-office">
+    <form (ngSubmit)="createOfficeForm(createOfficeFrom)" #createOfficeFrom="ngForm">
+        <div>
+          <label>Name: </label>
+        <input ngModel name="officeName" required>
+        </div>
+        <div>
+          <label>Address: </label>
+          <input ngModel name="officeAddress" required>
+        </div>
+        <div>
+          <label>Contact: </label>
+          <input ngModel name="officeContact" required>
+        </div>
+        <div>
+            <label>Info: </label>
+            <input ngModel name="officeInfo" required>
+        </div>
+      <div>
+        <button class="action-button text-button" type="submit" [disabled]="!createOfficeFrom.valid">Create</button>
+        <button class="action-button text-button cancel-button" (click)="cancelOfficeCreation()">Cancel</button>
+      </div>
+       
+      </form>
+      <div *ngIf="error">{{ error }}</div>
+</div>
+

@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, map, Observable, ReplaySubject, switchMap, tap, throwError } from "rxjs";
+import { BehaviorSubject, catchError, map, Observable, ReplaySubject, switchMap, tap, throwError } from "rxjs";
 import { User } from "./user";
 import { Router } from "@angular/router";
 
@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
   providedIn: 'root'
 })
 export class LoginService {
-  public user = new ReplaySubject<User>();
+  public user = new BehaviorSubject<User>(null);
   constructor(private http: HttpClient, private router: Router) {}
 
   public login(username: string, password: string): Observable<User> {
@@ -36,7 +36,7 @@ export class LoginService {
   }
 
   public logout(): void {
-    this.user = new ReplaySubject<User>();
+    this.user.next(null);
     localStorage.removeItem('userData')
     this.router.navigate(['']);
   }

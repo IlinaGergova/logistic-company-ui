@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-office-worker',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./office-worker.component.css', '/src/styles.css']
 })
 export class OfficeWorkerComponent {
+  @Input() companyId: number;
 
 }
