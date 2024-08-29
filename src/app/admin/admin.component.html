@@ -1,0 +1,72 @@
+<!-- <div>
+    <app-company></app-company>
+</div> -->
+
+<h1>Companies</h1>
+
+<div id="company-list">
+  <div id="table-header">
+    <div>Id</div>
+    <div>Name</div>
+    <div>Address</div>
+    <div>Contact</div>
+    <div>Actions</div>
+</div>
+  <div id="company-wrapper" *ngFor="let company of companies">
+    <div>
+      <div>{{ company.id }}</div>
+      <a [routerLink]="'/company/' + company.name">{{ company.name }}</a>
+      <div>{{ company.address }}</div>
+      <div>{{ company.contact }}</div>
+      <div>
+        <button (click)="edit(company)" class="action-button"><span class="material-icons">edit</span></button>
+        <button (click)="remove(company.id)" class="action-button delete-button"><span class="material-icons">delete</span></button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="editMode" id="edit-company">
+    <form (ngSubmit)="editCompany(editCompanyFrom, currentEditCompany.id)" #editCompanyFrom="ngForm">
+      <div>
+        <label>Name: </label>
+        <input name="companyName" required [(ngModel)]="currentEditCompany.name">
+      </div>
+      <div>
+        <label>Address: </label>
+        <input ngModel name="companyAddress" required [(ngModel)]="currentEditCompany.address">
+      </div>
+      <div>
+        <label>Contact: </label>
+        <input ngModel name="companyContact" required [(ngModel)]="currentEditCompany.contact">
+      </div>
+      <div>
+        <button class="action-button text-button" type="submit" [disabled]="!editCompanyFrom.valid">Save</button>
+        <button class="action-button text-button cancel-button" (click)="editMode = false">Cancel</button>
+      </div>
+    </form>
+    <div *ngIf="error">{{ error }}</div>
+  </div>
+</div>
+
+<button class="action-button add-button" (click)="createMode = true"><span class="material-icons">add</span> add company</button>
+
+<div *ngIf="createMode" id="create-company">
+  <form (ngSubmit)="createCompany(createCompanyFrom)" #createCompanyFrom="ngForm">
+    <div>
+      <label>Name: </label>
+      <input ngModel name="companyName" required>
+    </div>
+    <div>
+      <label>Address: </label>
+      <input ngModel name="companyAddress" required>
+    </div>
+   <div>
+      <label>Contact: </label>
+      <input ngModel name="companyContact" required>
+   </div>
+    <div>
+      <button class="action-button text-button" type="submit" [disabled]="!createCompanyFrom.valid">Create</button>
+      <button class="action-button text-button cancel-button" (click)="cancelCreation()">Cancel</button>
+    </div>
+  </form>
+  <div *ngIf="error">{{ error }}</div>
+</div>

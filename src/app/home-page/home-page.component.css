@@ -1,0 +1,21 @@
+#header {
+    display: flex;
+    justify-content: space-between;
+    height: 65px;
+}
+
+#userLogout {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    background-color: rgb(91, 157, 249);
+    color: white;
+    padding: 0px 15px;
+    border: none;
+    border-radius: 1rem;
+    height: 40px;
+    margin-top: 12%;
+    font-size: 16px;
+}
