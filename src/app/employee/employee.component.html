@@ -1,0 +1,98 @@
+<h1>Employees</h1>
+
+<div id="employee-list">
+  <div id="table-header">
+    <div>Id</div>
+    <div>Name</div>
+    <div>Address</div>
+    <div>Contact</div>
+    <div>Position</div>
+    <div>Office</div>
+    <div>Actions</div>
+</div>
+  <div id="employee-wrapper" *ngFor="let employee of employees">
+    <div>
+      <div>{{ employee.id }}</div>
+      <a [routerLink]="'/employee/' + employee.name">{{ employee.name }}</a>
+      <div>{{ employee.address }}</div>
+      <div>{{ employee.contact }}</div>
+      <div>{{ positions[employee.position] }}</div>
+      <div [innerText]="employee.office ? employee.office.name : '-'"></div>
+      <div>
+        <button (click)="edit(employee)" class="action-button"><span class="material-icons">edit</span></button>
+        <button (click)="delete(employee.id)" class="action-button delete-button"><span class="material-icons">delete</span></button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="editEmployeeMode" id="edit-employee">
+    <form (ngSubmit)="editEmployee(editEmployeeFrom, currentEditEmployee.id)" #editEmployeeFrom="ngForm">
+      <div>
+        <label>Name: </label>
+        <input name="employeeName" required [ngModel]="currentEditEmployee.name">
+      </div>
+      <div>
+        <label>Address: </label>
+        <input ngModel name="employeeAddress" required [ngModel]="currentEditEmployee.address">
+      </div>
+      <div>
+        <label>Contact: </label>
+        <input ngModel name="employeeContact" required [ngModel]="currentEditEmployee.contact">
+      </div>
+      <div>
+        <label for="office">Office: </label>
+        <select required [ngModel]="currentEditEmployee.office.id" name="employeeOffice" id="office">
+          <option *ngFor="let office of offices" [value]="office.id" >{{office.name}}</option>
+        </select>
+       </div>
+      <div>
+        <button class="action-button text-button" type="submit" [disabled]="!editEmployeeFrom.valid">Save</button>
+        <button class="action-button text-button cancel-button" (click)="editEmployeeMode = false">Cancel</button>
+      </div>
+    </form>
+    <div *ngIf="error">{{ error }}</div>
+  </div>
+</div>
+
+<button class="action-button add-button" (click)="createEmployeeMode = true"><span class="material-icons">add</span> add employee</button>
+
+<div *ngIf="createEmployeeMode" id="create-employee">
+  <form (ngSubmit)="createEmployeeForm(createEmployeeFrom)" #createEmployeeFrom="ngForm">
+    <div>
+      <label>Name: </label>
+      <input ngModel name="employeeName" required>
+    </div>
+    <div>
+      <label>Address: </label>
+      <input ngModel name="employeeAddress" required>
+    </div>
+   <div>
+      <label>Contact: </label>
+      <input ngModel name="employeeContact" required>
+   </div>
+   <div>
+    <label for="position">Position: </label>
+    <select required [(ngModel)]="selectedPosition" name="employeePosition" id="position">
+      <option *ngFor="let position of positions" [value]="position" >{{position}}</option>
+    </select>
+   </div>
+   <div *ngIf="selectedPosition === 'OfficeWorker'">
+    <label for="office">Office: </label>
+    <select required ngModel name="employeeOffice" id="office">
+      <option *ngFor="let office of offices" [value]="office.id" >{{office.name}}</option>
+    </select>
+   </div>
+   <div>
+        <label>Username: </label>
+        <input ngModel name="employeeUsername" required>
+    </div>
+    <div>
+        <label>Password: </label>
+        <input ngModel name="employeePassword" required>
+    </div>
+    <div>
+      <button class="action-button text-button" type="submit" [disabled]="!createEmployeeFrom.valid">Create</button>
+      <button class="action-button text-button cancel-button" (click)="cancelEmployeeCreation()">Cancel</button>
+    </div>
+  </form>
+  <div *ngIf="error">{{ error }}</div>
+</div>

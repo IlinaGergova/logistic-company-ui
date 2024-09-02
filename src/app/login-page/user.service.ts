@@ -5,7 +5,7 @@ import { Role } from './user';
 import { Observable } from 'rxjs';
 import { Client } from '../client/client';
 import { Courier } from '../courier/courier';
-import { OfficeWorker } from '../office-worker/office-worker';
+import { Employee } from '../employee/employee';
 
 @Injectable({
   providedIn: 'root'
@@ -31,10 +31,10 @@ export class UserService {
     )
   }
 
-  public getOfficeWorkerByUser(userId: number): Observable<OfficeWorker> {
+  public getEmployeeByUser(userId: number): Observable<Employee> {
     const token: string = JSON.parse(localStorage.getItem('userData')!).token;
-    return this.http.get<OfficeWorker>(
-       'http://localhost:3000/office-worker-by-user?user=' + userId,
+    return this.http.get<Employee>(
+       'http://localhost:3000/employee-by-user?user=' + userId,
        {headers: {"Authorization": "Bearer " + token}}
     )
   }

@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { OfficeWorkerComponent } from './office-worker/office-worker.component';
-import { OfficeWorkerProfileComponent } from './office-worker-profile/office-worker-profile.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
 import { PackageComponent } from './package/package.component';
 import { CourierComponent } from './courier/courier.component';
 import { CourierProfileComponent } from './courier-profile/courier-profile.component';
@@ -23,8 +23,8 @@ import { OfficeComponent } from './office/office.component';
 @NgModule({
   declarations: [
     AppComponent,
-    OfficeWorkerComponent,
-    OfficeWorkerProfileComponent,
+    EmployeeComponent,
+    EmployeeProfileComponent,
     PackageComponent,
     CourierComponent,
     CourierProfileComponent,

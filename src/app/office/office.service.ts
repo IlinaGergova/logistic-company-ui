@@ -13,7 +13,7 @@ export class OfficeService {
   public getOffices(companyId: number): Observable<Office[]> {
     const token: string = JSON.parse(localStorage.getItem('userData')).token;
     return this.http.get<Office[]>(
-       'http://localhost:3000/offices?school=' + companyId,
+       'http://localhost:3000/offices?company=' + companyId,
        {headers: {"Authorization": "Bearer " + token}}
     )
   }
