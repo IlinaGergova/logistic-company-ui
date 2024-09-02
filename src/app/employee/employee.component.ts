@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Employee } from './employee';
 import { NgForm } from '@angular/forms';
 import { switchMap, of } from 'rxjs';
@@ -14,7 +14,7 @@ import { OfficeService } from '../office/office.service';
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css', '/src/styles.css']
 })
-export class EmployeeComponent {
+export class EmployeeComponent implements OnInit {
   @Input() companyId: number;
   employees: Employee[];
   error = '';

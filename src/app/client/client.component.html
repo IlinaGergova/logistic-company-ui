@@ -1,1 +1,76 @@
-<p>client works!</p>
+<h1>Clients</h1>
+
+<div id="client-list">
+  <div id="table-header">
+    <div>Id</div>
+    <div>Name</div>
+    <div>Address</div>
+    <div>Contact</div>
+    <div>Actions</div>
+</div>
+  <div id="client-wrapper" *ngFor="let client of clients">
+    <div>
+      <div>{{ client.id }}</div>
+      <a [routerLink]="'/client/' + client.name">{{ client.name }}</a>
+      <div>{{ client.address }}</div>
+      <div>{{ client.contact }}</div>
+      <div>
+        <button (click)="edit(client)" class="action-button"><span class="material-icons">edit</span></button>
+        <button (click)="delete(client.id)" class="action-button delete-button"><span class="material-icons">delete</span></button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="editClientMode" id="edit-client">
+    <form (ngSubmit)="editClient(editClientFrom, currentEditClient.id)" #editClientFrom="ngForm">
+      <div>
+        <label>Name: </label>
+        <input name="clientName" required [ngModel]="currentEditClient.name">
+      </div>
+      <div>
+        <label>Address: </label>
+        <input ngModel name="clientAddress" required [ngModel]="currentEditClient.address">
+      </div>
+      <div>
+        <label>Contact: </label>
+        <input ngModel name="clientContact" required [ngModel]="currentEditClient.contact">
+      </div>
+      <div>
+        <button class="action-button text-button" type="submit" [disabled]="!editClientFrom.valid">Save</button>
+        <button class="action-button text-button cancel-button" (click)="editClientMode = false">Cancel</button>
+      </div>
+    </form>
+    <div *ngIf="error">{{ error }}</div>
+  </div>
+</div>
+
+<button class="action-button add-button" (click)="createClientMode = true"><span class="material-icons">add</span> add client</button>
+
+<div *ngIf="createClientMode" id="create-client">
+  <form (ngSubmit)="createClientForm(createClientFrom)" #createClientFrom="ngForm">
+    <div>
+      <label>Name: </label>
+      <input ngModel name="clientName" required>
+    </div>
+    <div>
+      <label>Address: </label>
+      <input ngModel name="clientAddress" required>
+    </div>
+   <div>
+      <label>Contact: </label>
+      <input ngModel name="clientContact" required>
+   </div>
+   <div>
+        <label>Username: </label>
+        <input ngModel name="clientUsername" required>
+    </div>
+    <div>
+        <label>Password: </label>
+        <input ngModel name="clientPassword" required>
+    </div>
+    <div>
+      <button class="action-button text-button" type="submit" [disabled]="!createClientFrom.valid">Create</button>
+      <button class="action-button text-button cancel-button" (click)="cancelClientCreation()">Cancel</button>
+    </div>
+  </form>
+  <div *ngIf="error">{{ error }}</div>
+</div>
