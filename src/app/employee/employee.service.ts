@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Position } from '../login-page/user';
@@ -19,11 +19,13 @@ export class EmployeeService {
     )
   }
 
-  public getEmployeesByPosition(position: Position): Observable<Employee[]> {
+  public getEmployeesByPosition(companyId: number, position: Position): Observable<Employee[]> {
+    const params = new HttpParams().append('companyId', companyId).append('position', position);
+
     const token: string = JSON.parse(localStorage.getItem('userData')).token;
     return this.http.get<Employee[]>(
-       'http://localhost:3000/employees-by-position?position=' + position,
-       {headers: {"Authorization": "Bearer " + token}}
+       'http://localhost:3000/employees-by-position',
+       {headers: {"Authorization": "Bearer " + token}, params}
     )
   }
 

@@ -1,74 +1,72 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Position } from '../login-page/user';
-import { Package } from './package';
+import { Order } from './order';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PackageService {
+export class OrderService {
   constructor(private http: HttpClient) { }
 
-  public getPackages(companyId: number): Observable<Package[]> {
+  public getOrders(companyId: number): Observable<Order[]> {
     const token: string = JSON.parse(localStorage.getItem('userData')).token;
-    return this.http.get<Package[]>(
-       'http://localhost:3000/packages?companyId=' + companyId,
+    return this.http.get<Order[]>(
+       'http://localhost:3000/orders?companyId=' + companyId,
        {headers: {"Authorization": "Bearer " + token}}
     )
   }
 
-  public getPackagesByOffice(officeId: number): Observable<Package[]> {
+  public getOrdersByOffice(officeId: number): Observable<Order[]> {
     const token: string = JSON.parse(localStorage.getItem('userData')).token;
-    return this.http.get<Package[]>(
-       'http://localhost:3000/packages-by-office?officeId=' + officeId,
+    return this.http.get<Order[]>(
+       'http://localhost:3000/orders-by-office?officeId=' + officeId,
        {headers: {"Authorization": "Bearer " + token}}
     )
   }
 
-  public getPackagesBySender(senderId: number): Observable<Package[]> {
+  public getOrdersBySender(senderId: number): Observable<Order[]> {
     const token: string = JSON.parse(localStorage.getItem('userData')).token;
-    return this.http.get<Package[]>(
-       'http://localhost:3000/packages-by-sender?senderId=' + senderId,
+    return this.http.get<Order[]>(
+       'http://localhost:3000/orders-by-sender?senderId=' + senderId,
        {headers: {"Authorization": "Bearer " + token}}
     )
   }
 
-  public getPackagesByRecipient(recipientId: number): Observable<Package[]> {
+  public getOrdersByRecipient(recipientId: number): Observable<Order[]> {
     const token: string = JSON.parse(localStorage.getItem('userData')).token;
-    return this.http.get<Package[]>(
-       'http://localhost:3000/packages-by-office?recipientId=' + recipientId,
+    return this.http.get<Order[]>(
+       'http://localhost:3000/orders-by-recipient?recipientId=' + recipientId,
        {headers: {"Authorization": "Bearer " + token}}
     )
   }
 
-  public getPackage(id: number): Observable<Package> {
-    return this.http.get<Package>(
-       'http://localhost:3000/package?id=' + id,
+  public getOrder(id: number): Observable<Order> {
+    return this.http.get<Order>(
+       'http://localhost:3000/order?id=' + id,
     )
   }
 
-  public createPackage(
+  public createOrder(
     companyId: number,
     senderId: number,
-    recipient: number,
+    recipientId: number,
     weight: number,
     price: number,
     officeWorkerId: number,
     courierId: number,
     sentDate: Date,
-    address?: number,
-    officeId?: number,
-    receivedDate?: Date,
-
+    address: string,
+    officeId: number,
+    receivedDate: Date,
   ) {
     const token: string = JSON.parse(localStorage.getItem('userData')).token;
     return this.http.post(
-      'http://localhost:3000/create-package',
+      'http://localhost:3000/create-order',
       {
         companyId: companyId,
         senderId: senderId,
-        recipient: recipient,
+        recipientId: recipientId,
         weight: weight,
         price: price,
         officeWorkerId: officeWorkerId,
@@ -82,18 +80,17 @@ export class PackageService {
     )
   }
 
-  public updatePackage(
+  public updateOrder(
     id: number,
     recipient: number,
     officeWorkerId: number,
     courierId: number,
     address?: number,
     officeId?: number,
-    receivedDate?: Date,
   ) {
     const token: string = JSON.parse(localStorage.getItem('userData')).token;
     return this.http.post(
-      'http://localhost:3000/update-package',
+      'http://localhost:3000/update-order',
       {
         id: id,
         recipient: recipient,
@@ -101,16 +98,30 @@ export class PackageService {
         courierId: courierId,
         address: address,
         officeId: officeId,
+      },
+      {headers: {"Authorization": "Bearer " + token}}
+    )
+  }
+
+  public receiveOrder(
+    id: number,
+    receivedDate: Date,
+  ) {
+    const token: string = JSON.parse(localStorage.getItem('userData')).token;
+    return this.http.post(
+      'http://localhost:3000/receive-order',
+      {
+        id: id,
         receivedDate: receivedDate,
       },
       {headers: {"Authorization": "Bearer " + token}}
     )
   }
 
-  public removePackage(id: number) {
+  public removeOrder(id: number) {
     const token: string = JSON.parse(localStorage.getItem('userData')).token;
     return this.http.post(
-      'http://localhost:3000/remove-package',
+      'http://localhost:3000/remove-order',
       {id: id},
       {headers: {"Authorization": "Bearer " + token}}
     )

@@ -2,7 +2,7 @@ import { Client } from "../client/client";
 import { Employee } from "../employee/employee";
 import { Office } from "../office/office";
 
-export interface Package {
+export interface Order {
     id: number;
     companyId: number;
     sender: Client;

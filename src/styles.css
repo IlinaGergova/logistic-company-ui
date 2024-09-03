@@ -4,7 +4,7 @@
   }
   
 .delete-button {
-  color: rgb(91, 157, 249);
+  color: #cb40e1;
 }
   
 .add-button {
@@ -28,6 +28,10 @@
   background-color: white;
   color: rgb(91, 157, 249);
   border-color: rgb(91, 157, 249);
+}
+
+.mark-button {
+  color: rgb(36, 173, 195);
 }
 
 label {

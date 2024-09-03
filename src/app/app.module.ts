@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
-import { PackageComponent } from './package/package.component';
 import { CourierComponent } from './courier/courier.component';
 import { CourierProfileComponent } from './courier-profile/courier-profile.component';
 import { ClientComponent } from './client/client.component';
@@ -19,13 +18,14 @@ import { AdminComponent } from './admin/admin.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { OfficeComponent } from './office/office.component';
+import { OrderComponent } from './order/order.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeComponent,
     EmployeeProfileComponent,
-    PackageComponent,
+    OrderComponent,
     CourierComponent,
     CourierProfileComponent,
     ClientComponent,
@@ -34,7 +34,7 @@ import { OfficeComponent } from './office/office.component';
     LoginPageComponent,
     AdminComponent,
     HomePageComponent,
-    OfficeComponent
+    OfficeComponent,
   ],
   imports: [
     CommonModule,

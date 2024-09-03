@@ -1,0 +1,150 @@
+<h1>Orders</h1>
+
+<div id="order-list">
+  <div id="table-header">
+    <div>Id</div>
+    <div>Sender</div>
+    <div>Recipient</div>
+    <div>Weight</div>
+    <div>Price</div>
+    <div>Office worker</div>
+    <div>Courier</div>
+    <div>Sent date</div>
+    <div>Address</div>
+    <div>Office</div>
+    <div>Received date</div>
+    <div>Actions</div>
+</div>
+  <div id="order-wrapper" *ngFor="let order of orders">
+    <div>
+      <div>{{ order.id }}</div>
+      <div>{{ order.sender.name }} - {{ order.sender.contact}}</div>
+      <div>{{ order.recipient.name }} - {{ order.recipient.contact}}</div>
+      <div>{{ order.weight }}</div>
+      <div>{{ order.price }}</div>
+      <div>{{ order.officeWorker.name }}</div>
+      <div>{{ order.courier.name }}</div>
+      <div>{{ order.sentDate }}</div>
+      <div [innerText]="order.address ? order.address : '-'"></div>
+      <div [innerText]="order.office ? order.office.name : '-'"></div>
+      <div [innerText]="order.receivedDate ? order.receivedDate : 'PENDING'"></div>
+      <div>
+        <button (click)="edit(order)" class="action-button"><span class="material-icons">edit</span></button>
+        <button (click)="delete(order.id)" class="action-button delete-button"><span class="material-icons">delete</span></button>
+        <button [disabled]="order.receivedDate" class="action-button mark-button" (click)="markAsReceived(order.id)"><span class="material-icons">assignment_turned_in</span></button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="editOrderMode" id="edit-order">
+    <form (ngSubmit)="editOrder(editOrderFrom, currentEditOrder.id)" #editOrderFrom="ngForm">
+      <div>
+        <label for="recipient">Recipient: </label>
+        <select required [ngModel]="currentEditOrder.recipient" name="orderRecipientId" id="recipient">
+          <option *ngFor="let client of clients" [value]="client.id" >{{client.name}}</option>
+        </select>
+       </div>
+
+       <div>
+        <label for="recipient">Office worker: </label>
+        <select required [ngModel]="currentEditOrder.officeWorker" name="orderOfficeWorkerId" id="worker">
+          <option *ngFor="let worker of workers" [value]="worker.id" >{{worker.name}}</option>
+        </select>
+       </div>
+
+       <div>
+        <label for="recipient">Courier: </label>
+        <select required [ngModel]="currentEditOrder.courier" name="orderCourierId" id="courier">
+          <option *ngFor="let courier of couriers" [value]="courier.id" >{{courier.name}}</option>
+        </select>
+       </div>
+
+      <div *ngIf="isAddressSelected">
+        <label>Address: </label>
+        <input ngModel name="orderAddress" required [ngModel]="currentEditOrder.address">
+      </div>
+
+      <div *ngIf="isOfficeSelected">
+        <label for="office">Office: </label>
+        <select required [ngModel]="currentEditOrder.office.id" name="orderOffice" id="office">
+          <option *ngFor="let office of offices" [value]="office.id" >{{office.name}}</option>
+        </select>
+       </div>
+
+      <div>
+        <button class="action-button text-button" type="submit" [disabled]="!editOrderFrom.valid">Save</button>
+        <button class="action-button text-button cancel-button" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+    <div *ngIf="error">{{ error }}</div>
+  </div>
+</div>
+
+<button class="action-button add-button" (click)="openForm()"><span class="material-icons">add</span> add order</button>
+
+<div *ngIf="createOrderMode" id="create-order">
+  <form (ngSubmit)="createOrderForm(createOrderFrom)" #createOrderFrom="ngForm">
+    <div>
+      <label for="sender">Sender: </label>
+      <select required ngModel name="orderSenderId" id="sender">
+        <option *ngFor="let client of clients" [value]="client.id" >{{client.name}} - {{client.contact}}</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="recipient">Recipient: </label>
+      <select required ngModel name="orderRecipientId" id="recipient">
+        <option *ngFor="let client of clients" [value]="client.id" >{{client.name}} - {{client.contact}}</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Weight: </label>
+      <input ngModel name="orderWeight" required>
+    </div>
+
+     <div>
+      <label for="worker">Office worker: </label>
+      <select required ngModel name="orderOfficeWorkerId" id="worker">
+        <option *ngFor="let worker of workers" [value]="worker.id" >{{worker.name}}</option>
+      </select>
+     </div>
+
+     <div>
+      <label for="courier">Courier: </label>
+      <select required ngModel name="orderCourierId" id="courier">
+        <option *ngFor="let courier of couriers" [value]="courier.id" >{{courier.name}}</option>
+      </select>
+     </div>
+
+     <div>
+      <label>Choose address or office:</label>
+      <div>
+        <input type="radio" id="office" name="destination" value="office" (click)="isOfficeSelected = true; isAddressSelected = false" />
+        <label for="office">Office</label>
+      </div>
+    
+      <div>
+        <input type="radio" id="address" name="destination" value="address" (click)="isAddressSelected = true; isOfficeSelected = false" />
+        <label for="address">Address</label>
+      </div>
+     </div>
+
+    <div *ngIf="isAddressSelected">
+      <label>Address: </label>
+      <input ngModel name="orderAddress" required ngModel>
+    </div>
+
+    <div *ngIf="isOfficeSelected">
+      <label for="office">Office: </label>
+      <select required ngModel name="orderOfficeId" id="office">
+        <option *ngFor="let office of offices" [value]="office.id" >{{office.name}}</option>
+      </select>
+     </div>
+  
+    <div>
+      <button class="action-button text-button" type="submit" [disabled]="!createOrderFrom.valid">Create</button>
+      <button class="action-button text-button cancel-button" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+  <div *ngIf="error">{{ error }}</div>
+</div>
