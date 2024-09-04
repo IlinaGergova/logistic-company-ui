@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Role } from './user';
 import { Observable } from 'rxjs';
 import { Client } from '../client/client';
-import { Courier } from '../courier/courier';
 import { Employee } from '../employee/employee';
 
 @Injectable({
@@ -35,14 +34,6 @@ export class UserService {
     const token: string = JSON.parse(localStorage.getItem('userData')!).token;
     return this.http.get<Employee>(
        'http://localhost:3000/employee-by-user?user=' + userId,
-       {headers: {"Authorization": "Bearer " + token}}
-    )
-  }
-
-  public getCourierByUser(userId: number): Observable<Courier> {
-    const token: string = JSON.parse(localStorage.getItem('userData')!).token;
-    return this.http.get<Courier>(
-       'http://localhost:3000/courier-by-user?user=' + userId,
        {headers: {"Authorization": "Bearer " + token}}
     )
   }

@@ -8,7 +8,7 @@ import { AdminComponent } from '../admin/admin.component';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css', '/src/styles.css']
+  styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent {
   public username = '';

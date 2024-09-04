@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Employee } from './employee';
 import { NgForm } from '@angular/forms';
-import { switchMap, of } from 'rxjs';
+import { switchMap, of, combineLatest } from 'rxjs';
 import { LoginService } from '../login-page/login-page.service';
 import { Position, Role } from '../login-page/user';
 import { UserService } from '../login-page/user.service';
@@ -12,7 +12,7 @@ import { OfficeService } from '../office/office.service';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.css', '/src/styles.css']
+  styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
   @Input() companyId: number;
@@ -108,6 +108,11 @@ export class EmployeeComponent implements OnInit {
       },
       error: err => this.error = err
     })
+  }
+
+  public openForm(): void {
+    this.getOffices();
+    this.createEmployeeMode = true
   }
 
   public cancelEmployeeCreation(): void {

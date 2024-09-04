@@ -9,7 +9,7 @@ import { UserService } from '../login-page/user.service';
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
-  styleUrls: ['./client.component.css', '/src/styles.css']
+  styleUrls: ['./client.component.css']
 })
 export class ClientComponent implements OnInit {
   @Input() companyId: number;
@@ -19,7 +19,7 @@ export class ClientComponent implements OnInit {
   createClientMode = false;
   currentEditClient: Client = null;
 
-  
+
   constructor(
     private clientService: ClientService,
     private userService: UserService

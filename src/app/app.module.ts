@@ -5,8 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
-import { CourierComponent } from './courier/courier.component';
-import { CourierProfileComponent } from './courier-profile/courier-profile.component';
 import { ClientComponent } from './client/client.component';
 import { ClientProfileComponent } from './client-profile/client-profile.component';
 import { CompanyComponent } from './company/company.component';
@@ -26,8 +24,6 @@ import { OrderComponent } from './order/order.component';
     EmployeeComponent,
     EmployeeProfileComponent,
     OrderComponent,
-    CourierComponent,
-    CourierProfileComponent,
     ClientComponent,
     ClientProfileComponent,
     CompanyComponent,

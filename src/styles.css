@@ -1,12 +1,20 @@
 .action-button {
-    border: none;
-    background-color: transparent;
-  }
-  
+  border: none;
+  background-color: transparent;
+}
+
+.action-button:hover {
+  cursor: pointer;
+}
+
 .delete-button {
   color: #cb40e1;
 }
-  
+
+.delete-button:hover {
+  color: #a02eb1;
+}
+
 .add-button {
   display: flex;
   align-items: center;
@@ -23,22 +31,42 @@
   font-size: 18px;
   margin: 5px;
 }
-  
+
 .cancel-button {
   background-color: white;
   color: rgb(91, 157, 249);
   border-color: rgb(91, 157, 249);
 }
 
+.add-button:hover,
+.text-button:hover,
+.cancel-button:hover {
+  color: rgb(59, 113, 188);
+}
+
+.add-button:disabled,
+.text-button:disabled,
+.cancel-button:disabled {
+  color: rgb(138, 185, 251);
+}
+
 .mark-button {
   color: rgb(36, 173, 195);
+}
+
+.mark-button:hover {
+  color: rgb(28, 144, 161);
+}
+
+.mark-button:disabled {
+  color: rgb(189, 238, 245);
 }
 
 label {
   font-size: 18px;
   font-weight: bold;
 }
-  
+
 input {
   font-size: 18px;
   padding: 7px;
@@ -50,7 +78,7 @@ input {
 form {
   margin-top: 10px;
 }
-  
+
 form > div {
   margin-bottom: 10px;
 }

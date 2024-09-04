@@ -8,7 +8,7 @@ import { isEmpty } from 'lodash';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
-  styleUrls: ['./company.component.css', '/src/styles.css']
+  styleUrls: ['./company.component.css']
 })
 export class CompanyComponent implements OnInit {
   company: Company;

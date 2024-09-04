@@ -53,7 +53,7 @@
   </div>
 </div>
 
-<button class="action-button add-button" (click)="createEmployeeMode = true"><span class="material-icons">add</span> add employee</button>
+<button class="action-button add-button" (click)="openForm()"><span class="material-icons">add</span> add employee</button>
 
 <div *ngIf="createEmployeeMode" id="create-employee">
   <form (ngSubmit)="createEmployeeForm(createEmployeeFrom)" #createEmployeeFrom="ngForm">

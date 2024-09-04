@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Order } from './order';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../login-page/user.service';
@@ -20,7 +20,7 @@ const TAX_SERVICE =  1.13;
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css', '/src/styles.css']
+  styleUrls: ['./order.component.css']
 })
 
 export class OrderComponent implements OnInit {
@@ -55,9 +55,28 @@ export class OrderComponent implements OnInit {
     );
   }
 
-  public edit(p: Order): void {
+  public edit(selectedOrder: Order): void {
+
+    combineLatest([
+      this.officeService.getOffices(this.companyId),
+      this.employeeService.getEmployeesByPosition(this.companyId, Position.Courier),
+      this.employeeService.getEmployeesByPosition(this.companyId, Position.OfficeWorker),
+      this.clientService.getClients(this.companyId),
+    ]).subscribe(([offices, couriers, workers, clients]) => {
+      this.offices = offices;
+      this.couriers = couriers;
+      this.workers = workers;
+      this.clients = clients;
+
     this.editOrderMode = true;
-    this.currentEditOrder = p;
+    if(selectedOrder.address) {
+      this.isAddressSelected = true;
+    } else {
+      this.isOfficeSelected = true;
+    }
+    this.currentEditOrder = selectedOrder;
+  })
+
   }
 
   public delete(orderId: number): void {
@@ -131,7 +150,7 @@ export class OrderComponent implements OnInit {
 
   public calculatePrice(weight: number): number {
     const totalTax = TAX_SERVICE + weight * (this.isAddressSelected ? TAX_FUEL_ADDRESS : TAX_FUEL_OFFICE);
-    return parseFloat(totalTax.toFixed(2)); 
+    return parseFloat(totalTax.toFixed(2));
   }
 
   public openForm(): void {
@@ -148,7 +167,6 @@ export class OrderComponent implements OnInit {
 
       this.createOrderMode = true;
     })
-
   }
 
   public cancel(): void {

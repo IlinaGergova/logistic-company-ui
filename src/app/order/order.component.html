@@ -39,33 +39,33 @@
     <form (ngSubmit)="editOrder(editOrderFrom, currentEditOrder.id)" #editOrderFrom="ngForm">
       <div>
         <label for="recipient">Recipient: </label>
-        <select required [ngModel]="currentEditOrder.recipient" name="orderRecipientId" id="recipient">
+        <select required [ngModel]="currentEditOrder.recipient.id" name="orderRecipientId" id="recipient">
           <option *ngFor="let client of clients" [value]="client.id" >{{client.name}}</option>
         </select>
        </div>
 
        <div>
         <label for="recipient">Office worker: </label>
-        <select required [ngModel]="currentEditOrder.officeWorker" name="orderOfficeWorkerId" id="worker">
+        <select required [ngModel]="currentEditOrder.officeWorker.id" name="orderOfficeWorkerId" id="worker">
           <option *ngFor="let worker of workers" [value]="worker.id" >{{worker.name}}</option>
         </select>
        </div>
 
        <div>
         <label for="recipient">Courier: </label>
-        <select required [ngModel]="currentEditOrder.courier" name="orderCourierId" id="courier">
+        <select required [ngModel]="currentEditOrder.courier.id" name="orderCourierId" id="courier">
           <option *ngFor="let courier of couriers" [value]="courier.id" >{{courier.name}}</option>
         </select>
        </div>
 
       <div *ngIf="isAddressSelected">
         <label>Address: </label>
-        <input ngModel name="orderAddress" required [ngModel]="currentEditOrder.address">
+        <input name="orderAddress" required [ngModel]="currentEditOrder.address">
       </div>
 
       <div *ngIf="isOfficeSelected">
         <label for="office">Office: </label>
-        <select required [ngModel]="currentEditOrder.office.id" name="orderOffice" id="office">
+        <select required [ngModel]="currentEditOrder.office.id" name="orderOfficeId" id="office">
           <option *ngFor="let office of offices" [value]="office.id" >{{office.name}}</option>
         </select>
        </div>
@@ -86,7 +86,7 @@
     <div>
       <label for="sender">Sender: </label>
       <select required ngModel name="orderSenderId" id="sender">
-        <option *ngFor="let client of clients" [value]="client.id" >{{client.name}} - {{client.contact}}</option>
+        <option *ngFor="let client of clients" [value]="client.id">{{client.name}} - {{client.contact}}</option>
       </select>
     </div>
 
@@ -122,7 +122,7 @@
         <input type="radio" id="office" name="destination" value="office" (click)="isOfficeSelected = true; isAddressSelected = false" />
         <label for="office">Office</label>
       </div>
-    
+
       <div>
         <input type="radio" id="address" name="destination" value="address" (click)="isAddressSelected = true; isOfficeSelected = false" />
         <label for="address">Address</label>
@@ -140,7 +140,7 @@
         <option *ngFor="let office of offices" [value]="office.id" >{{office.name}}</option>
       </select>
      </div>
-  
+
     <div>
       <button class="action-button text-button" type="submit" [disabled]="!createOrderFrom.valid">Create</button>
       <button class="action-button text-button cancel-button" (click)="cancel()">Cancel</button>

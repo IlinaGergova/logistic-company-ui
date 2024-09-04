@@ -44,10 +44,6 @@ export class LoginPageComponent implements OnInit{
           this.userService.getEmployeeByUser(this.user.id).subscribe(worker => this.router.navigate(['employee-profile/' + worker.id]))
           break;
         }
-        case Role.Courier: {
-          this.userService.getCourierByUser(this.user.id).subscribe(courier => this.router.navigate(['courier-profile/' + courier.id]))
-          break;
-        }
         default: {
           this.router.navigate(['']);
           break;
