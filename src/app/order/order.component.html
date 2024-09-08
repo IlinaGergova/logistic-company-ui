@@ -1,4 +1,8 @@
-<h1>Orders</h1>
+<h1>
+  <span>Orders</span>
+  <input type="checkbox" id="order-switch" (click)="switchOrderMode()" name="order-switch" value="orderSwitch">
+  <label for="order-switch">Show only orders that are still pending</label><br>
+</h1>
 
 <div id="order-list">
   <div id="table-header">
@@ -15,7 +19,7 @@
     <div>Received date</div>
     <div>Actions</div>
 </div>
-  <div id="order-wrapper" *ngFor="let order of orders">
+  <div id="order-wrapper" *ngFor="let order of shownOrders">
     <div>
       <div>{{ order.id }}</div>
       <div>{{ order.sender.name }} - {{ order.sender.contact}}</div>

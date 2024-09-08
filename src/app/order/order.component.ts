@@ -26,6 +26,7 @@ const TAX_SERVICE =  1.13;
 export class OrderComponent implements OnInit {
   @Input() companyId: number;
   orders: Order[];
+  shownOrders: Order[];
   offices: Office[];
   couriers: Employee[];
   workers: Employee[];
@@ -36,6 +37,7 @@ export class OrderComponent implements OnInit {
   createOrderMode = false;
   isOfficeSelected = false;
   isAddressSelected = false;
+  orderSwitch = false;
 
   constructor(
     private orderService: OrderService,
@@ -51,8 +53,21 @@ export class OrderComponent implements OnInit {
 
   public getOrders(): void {
     this.orderService.getOrders(this.companyId).subscribe(
-      orders => this.orders = orders
+      orders => {
+        this.orders = orders;
+        this.shownOrders = orders;
+      }
     );
+  }
+
+  public switchOrderMode(): void {
+    this.orderSwitch = !this.orderSwitch;
+    if(this.orderSwitch) {
+      this.shownOrders = this.orders.filter(order => order.receivedDate === null);
+    }
+    else {
+      this.shownOrders = this.orders;
+    }
   }
 
   public edit(selectedOrder: Order): void {
