@@ -1,9 +1,20 @@
 <h1>
   <span>Orders</span>
-  <input type="checkbox" id="pending-switch" (click)="showHidePending()" name="pending-switch" checked value="pendingSwitch">
-  <label for="pending-switch">Pending orders</label><br>
-  <input type="checkbox" id="received-switch" (click)="showHideReceived()" name="received-switch" checked value="receivedSwitch">
-  <label for="received-switch">Received orders</label><br>
+
+  <div>
+    <input type="checkbox" id="pending-switch" (click)="showHidePending()" name="pending-switch" checked value="pendingSwitch">
+    <label for="pending-switch">Pending orders</label><br>
+  </div>
+
+  <div>
+    <input type="checkbox" id="received-switch" (click)="showHideReceived()" name="received-switch" checked value="receivedSwitch">
+    <label for="received-switch">Received orders</label><br>
+  </div>
+
+  <div *ngIf="isOfficeWorker()">
+    <input type="checkbox" id="registered-by-switch" (click)="showHideRegisteredByMe()" name="registered-by-switch" value="registeredBySwitch">
+    <label for="registered-by-switch">Registered by me</label><br>
+  </div>
 </h1>
 
 <div id="order-list">
@@ -19,7 +30,7 @@
     <div>Address</div>
     <div>Office</div>
     <div>Received date</div>
-    <div>Actions</div>
+    <div *ngIf="!isClient()">Actions</div>
 </div>
   <div id="order-wrapper" *ngFor="let order of shownOrders">
     <div>
@@ -34,9 +45,9 @@
       <div [innerText]="order.address ? order.address : '-'"></div>
       <div [innerText]="order.office ? order.office.name : '-'"></div>
       <div [innerText]="order.receivedDate ? order.receivedDate : 'PENDING'"></div>
-      <div>
-        <button (click)="edit(order)" class="action-button"><span class="material-icons">edit</span></button>
-        <button (click)="delete(order.id)" class="action-button delete-button"><span class="material-icons">delete</span></button>
+      <div *ngIf="!isClient()">
+        <button *ngIf="!isCourier()" (click)="edit(order)" class="action-button"><span class="material-icons">edit</span></button>
+        <button *ngIf="!isCourier()" (click)="delete(order.id)" class="action-button delete-button"><span class="material-icons">delete</span></button>
         <button [disabled]="order.receivedDate" class="action-button mark-button" (click)="markAsReceived(order.id)"><span class="material-icons">assignment_turned_in</span></button>
       </div>
     </div>
@@ -85,7 +96,7 @@
   </div>
 </div>
 
-<button class="action-button add-button" (click)="openForm()"><span class="material-icons">add</span> add order</button>
+<button *ngIf="!isClient() && !isCourier()" class="action-button add-button" (click)="openForm()"><span class="material-icons">add</span> add order</button>
 
 <div *ngIf="createOrderMode" id="create-order">
   <form (ngSubmit)="createOrderForm(createOrderFrom)" #createOrderFrom="ngForm">

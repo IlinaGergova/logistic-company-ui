@@ -25,6 +25,7 @@ const TAX_SERVICE =  1.13;
 
 export class OrderComponent implements OnInit {
   @Input() companyId: number;
+  @Input() userDetails: Employee | Client;
   orders: Order[];
   shownOrders: Order[];
   offices: Office[];
@@ -37,8 +38,10 @@ export class OrderComponent implements OnInit {
   createOrderMode = false;
   isOfficeSelected = false;
   isAddressSelected = false;
+
   pendingSwitch = true;
   receivedSwitch = true;
+  registeredBySwitch = false;
 
   constructor(
     private orderService: OrderService,
@@ -55,10 +58,42 @@ export class OrderComponent implements OnInit {
   public getOrders(): void {
     this.orderService.getOrders(this.companyId).subscribe(
       orders => {
-        this.orders = orders;
-        this.shownOrders = orders;
+        if (this.isClient()) {
+          this.orders = orders.filter(order => order.sender.id === this.userDetails.id || order.recipient.id === this.userDetails.id)
+          console.log(this.orders)
+        } else {
+          this.orders = orders;
+        }
+        this.shownOrders = this.orders;
       }
     );
+  }
+
+  public isClient(): boolean {
+    if(this.userDetails && !('position' in this.userDetails)) {
+      return true;
+    }
+    return false;
+  }
+
+  public isCourier(): boolean {
+    if(this.userDetails
+      && 'position' in this.userDetails
+      && this.userDetails.position === Position.Courier
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  public isOfficeWorker(): boolean {
+    if(this.userDetails
+      && 'position' in this.userDetails
+      && this.userDetails.position === Position.OfficeWorker
+    ) {
+      return true;
+    }
+    return false;
   }
 
   public showHideReceived(): void {
@@ -79,6 +114,25 @@ export class OrderComponent implements OnInit {
     else {
       this.shownOrders = this.shownOrders.filter(order => order.receivedDate !== null);
     }
+  }
+
+  public showHideRegisteredByMe(): void {
+    this.registeredBySwitch = !this.registeredBySwitch;
+    if(this.registeredBySwitch) {
+      this.shownOrders = this.shownOrders.filter(order => order.officeWorker.id === this.userDetails.id);
+    }
+    else {
+      this.resetTableView()
+    }
+  }
+
+  private resetTableView(): void {
+    this.shownOrders = this.orders;
+    // Reaply filtering without losing original checkbox state
+    this.showHideReceived();
+    this.showHideReceived();
+    this.showHidePending();
+    this.showHidePending();
   }
 
   public edit(selectedOrder: Order): void {

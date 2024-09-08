@@ -8,5 +8,5 @@
   <app-office [companyId]="company.id" [userDetails]="userDetails"></app-office>
   <app-employee *ngIf="getEmployeeVisibility()" [companyId]="company.id"></app-employee>
   <app-client *ngIf="getClientVisibility()" [companyId]="company.id" [userDetails]="userDetails"></app-client>
-  <app-order [companyId]="company.id"></app-order>
+  <app-order [companyId]="company.id" [userDetails]="userDetails"></app-order>
 </div>
