@@ -1,7 +1,9 @@
 <h1>
   <span>Orders</span>
-  <input type="checkbox" id="order-switch" (click)="switchOrderMode()" name="order-switch" value="orderSwitch">
-  <label for="order-switch">Show only orders that are still pending</label><br>
+  <input type="checkbox" id="pending-switch" (click)="showHidePending()" name="pending-switch" checked value="pendingSwitch">
+  <label for="pending-switch">Pending orders</label><br>
+  <input type="checkbox" id="received-switch" (click)="showHideReceived()" name="received-switch" checked value="receivedSwitch">
+  <label for="received-switch">Received orders</label><br>
 </h1>
 
 <div id="order-list">

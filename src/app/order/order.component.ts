@@ -37,7 +37,8 @@ export class OrderComponent implements OnInit {
   createOrderMode = false;
   isOfficeSelected = false;
   isAddressSelected = false;
-  orderSwitch = false;
+  pendingSwitch = true;
+  receivedSwitch = true;
 
   constructor(
     private orderService: OrderService,
@@ -60,13 +61,23 @@ export class OrderComponent implements OnInit {
     );
   }
 
-  public switchOrderMode(): void {
-    this.orderSwitch = !this.orderSwitch;
-    if(this.orderSwitch) {
-      this.shownOrders = this.orders.filter(order => order.receivedDate === null);
+  public showHideReceived(): void {
+    this.receivedSwitch = !this.receivedSwitch;
+    if(this.receivedSwitch) {
+      this.shownOrders = this.shownOrders.concat(this.orders.filter(order => order.receivedDate !== null));
     }
     else {
-      this.shownOrders = this.orders;
+      this.shownOrders = this.shownOrders.filter(order => order.receivedDate === null);
+    }
+  }
+
+  public showHidePending(): void {
+    this.pendingSwitch = !this.pendingSwitch;
+    if(this.pendingSwitch) {
+      this.shownOrders = this.shownOrders.concat(this.orders.filter(order => order.receivedDate === null));
+    }
+    else {
+      this.shownOrders = this.shownOrders.filter(order => order.receivedDate !== null);
     }
   }
 
