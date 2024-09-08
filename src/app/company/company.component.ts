@@ -46,4 +46,12 @@ export class CompanyComponent implements OnInit {
       this.userSerivce.getClientByUser(user.id).subscribe(client => this.userDetails = client);
     }
   }
+
+  public getEmployeeVisibility(): boolean {
+    return !this.userDetails; // Admins have no details
+  }
+
+  public getClientVisibility(): boolean {
+    return !this.userDetails || 'position' in this.userDetails
+  }
 }

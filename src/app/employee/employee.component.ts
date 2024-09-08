@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Employee } from './employee';
 import { NgForm } from '@angular/forms';
-import { switchMap, of, combineLatest } from 'rxjs';
-import { LoginService } from '../login-page/login-page.service';
+import { switchMap, of } from 'rxjs';
 import { Position, Role } from '../login-page/user';
 import { UserService } from '../login-page/user.service';
 import { EmployeeService } from './employee.service';

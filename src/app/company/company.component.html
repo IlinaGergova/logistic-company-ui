@@ -6,7 +6,7 @@
   </div>
 
   <app-office [companyId]="company.id" [userDetails]="userDetails"></app-office>
-  <app-employee *ngIf="!userDetails" [companyId]="company.id"></app-employee>
-  <app-client [companyId]="company.id"></app-client>
+  <app-employee *ngIf="getEmployeeVisibility()" [companyId]="company.id"></app-employee>
+  <app-client *ngIf="getClientVisibility()" [companyId]="company.id" [userDetails]="userDetails"></app-client>
   <app-order [companyId]="company.id"></app-order>
 </div>

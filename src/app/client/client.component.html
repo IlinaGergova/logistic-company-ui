@@ -6,7 +6,7 @@
     <div>Name</div>
     <div>Address</div>
     <div>Contact</div>
-    <div>Actions</div>
+    <div *ngIf="hasAccess()">Actions</div>
 </div>
   <div id="client-wrapper" *ngFor="let client of clients">
     <div>
@@ -14,7 +14,7 @@
       <a [routerLink]="'/client/' + client.name">{{ client.name }}</a>
       <div>{{ client.address }}</div>
       <div>{{ client.contact }}</div>
-      <div>
+      <div *ngIf="hasAccess()">
         <button (click)="edit(client)" class="action-button"><span class="material-icons">edit</span></button>
         <button (click)="delete(client.id)" class="action-button delete-button"><span class="material-icons">delete</span></button>
       </div>
@@ -43,7 +43,7 @@
   </div>
 </div>
 
-<button class="action-button add-button" (click)="createClientMode = true"><span class="material-icons">add</span> add client</button>
+<button *ngIf="hasAccess()" class="action-button add-button" (click)="createClientMode = true"><span class="material-icons">add</span> add client</button>
 
 <div *ngIf="createClientMode" id="create-client">
   <form (ngSubmit)="createClientForm(createClientFrom)" #createClientFrom="ngForm">

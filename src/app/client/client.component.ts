@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { switchMap, of } from 'rxjs';
 import { Role, Position } from '../login-page/user';
 import { UserService } from '../login-page/user.service';
+import { Employee } from '../employee/employee';
 
 @Component({
   selector: 'app-client',
@@ -13,6 +14,7 @@ import { UserService } from '../login-page/user.service';
 })
 export class ClientComponent implements OnInit {
   @Input() companyId: number;
+  @Input() userDetails: Employee | Client;
   clients: Client[];
   error = '';
   editClientMode = false;
@@ -27,6 +29,17 @@ export class ClientComponent implements OnInit {
 
   ngOnInit(): void {
     this.getClients();
+  }
+
+  public hasAccess(): boolean {
+    if(!this.userDetails)  { // Admin
+      return true;
+    }
+    if (!('position' in this.userDetails) // Excluded
+      || ('position' in this.userDetails && this.userDetails.position === Position.Courier)){
+      return false;
+    }
+    return true; // For all else
   }
 
   public getClients(): void {
