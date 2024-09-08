@@ -1,8 +1,10 @@
+import { Company } from "../company/company";
+
 export interface Client {
     id: number;
     name: string;
     address: string;
     contact: string;
-    companyId: number;
+    company: Company;
     userId: number;
 }

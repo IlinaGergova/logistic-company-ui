@@ -37,7 +37,7 @@ export class LoginPageComponent implements OnInit{
           break;
         }
         case Role.Client: {
-          this.userService.getClientByUser(this.user.id).subscribe(client => this.router.navigate(['/company/' + client.companyId]))
+          this.userService.getClientByUser(this.user.id).subscribe(client => this.router.navigate(['/company/' + client.company.id]))
           break;
         }
         case Role.Employee: {
