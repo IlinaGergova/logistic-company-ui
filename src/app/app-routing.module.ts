@@ -11,9 +11,7 @@ import { CompanyComponent } from './company/company.component';
 export const routes: Routes = [
   { path: '', component: LoginPageComponent},
   { path:'home', component: HomePageComponent, canActivate: [AuthGuard, AdminAuthGuard]},
-  { path: 'company/:name', component: CompanyComponent, canActivate: [AuthGuard]},
-  { path: 'employee-profile/:id', component: EmployeeComponent, canActivate: [AuthGuard]},
-  { path: 'client-profile/:id', component: ClientComponent, canActivate: [AuthGuard]},
+  { path: 'company/:id', component: CompanyComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

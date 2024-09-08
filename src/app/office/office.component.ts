@@ -3,9 +3,11 @@ import { Office } from './office';
 import { LoginService } from '../login-page/login-page.service';
 import { UserService } from '../login-page/user.service';
 import { OfficeService } from './office.service';
-import { Role } from '../login-page/user';
+import { Position, Role } from '../login-page/user';
 import { NgForm } from '@angular/forms';
 import { switchMap, of } from 'rxjs';
+import { Employee } from '../employee/employee';
+import { Client } from '../client/client';
 
 @Component({
   selector: 'app-office',
@@ -14,21 +16,30 @@ import { switchMap, of } from 'rxjs';
 })
 export class OfficeComponent {
   @Input() companyId: number;
+  @Input() userDetails: Employee | Client;
   offices: Office[];
   editOfficeMode = false;
   createOfficeMode = false;
   currentEditOffice: Office = null;
-  userRole: string;
   error: string;
 
   constructor(
     private officeService: OfficeService,
-    private loginService: LoginService,
   ) { }
 
   ngOnInit(): void {
-    this.userRole = Role[this.loginService.user.value.role]
     this.getOffices();
+  }
+
+  public hasAccess(): boolean {
+    if(!this.userDetails)  { // Admin
+      return true;
+    }
+    if (!('position' in this.userDetails) // Excluded
+      || ('position' in this.userDetails && this.userDetails.position === Position.Courier)){
+      return false;
+    }
+    return true; // For all else
   }
 
   public getOffices(): void {

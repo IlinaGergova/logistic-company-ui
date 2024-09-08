@@ -5,9 +5,8 @@
     <div>Contact: {{ company.contact }}</div>
   </div>
 
-  <app-office [companyId]="company.id"></app-office>
+  <app-office [companyId]="company.id" [userDetails]="userDetails"></app-office>
   <app-employee [companyId]="company.id"></app-employee>
   <app-client [companyId]="company.id"></app-client>
   <app-order [companyId]="company.id"></app-order>
 </div>
-  

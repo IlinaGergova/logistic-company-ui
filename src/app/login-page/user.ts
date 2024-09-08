@@ -8,7 +8,6 @@ export interface User {
 export enum Role {
   Admin,
   Client,
-  Courier,
   Employee,
 }
 

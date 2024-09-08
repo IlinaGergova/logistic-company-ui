@@ -11,7 +11,7 @@
   <div id="company-wrapper" *ngFor="let company of companies">
     <div>
       <div>{{ company.id }}</div>
-      <a [routerLink]="'/company/' + company.name">{{ company.name }}</a>
+      <a [routerLink]="'/company/' + company.id">{{ company.name }}</a>
       <div>{{ company.address }}</div>
       <div>{{ company.contact }}</div>
       <div>
