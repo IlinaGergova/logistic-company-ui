@@ -1,13 +1,9 @@
-import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { LoginService } from './login-page.service';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { HomePageComponent } from '../home-page/home-page.component';
 import { Role, User } from './user';
 import { UserService } from './user.service';
-import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -33,7 +29,7 @@ export class LoginPageComponent implements OnInit{
       this.user = res;
       switch(this.user.role) {
         case Role.Admin: {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/admin']);
           break;
         }
         case Role.Client: {

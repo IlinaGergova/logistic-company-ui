@@ -1,9 +1,51 @@
+<app-header></app-header>
+<div id="personal-info" *ngIf="userDetails">
+  <h2>Personal info</h2>
+  <div>Name: {{ userDetails.name }}</div>
+  <div>Address: {{ userDetails.address }}</div>
+  <div>Contact: {{ userDetails.contact }}</div>
+  <div *ngIf="isEmployee()">Position: {{ position }}</div>
+  <div *ngIf="isCourier()">Office: {{ office.name }}</div>
+  <button (click)="editUserMode = true" class="action-button"><span class="material-icons">edit</span></button>
+</div>
+
+<div *ngIf="editUserMode" id="edit-user">
+  <form (ngSubmit)="editUser(editUserFrom)" #editUserFrom="ngForm">
+    <div>
+      <label>Name: </label>
+      <input name="userName" required [ngModel]="userDetails.name">
+    </div>
+    <div>
+      <label>Address: </label>
+      <input ngModel name="userAddress" required [ngModel]="userDetails.address">
+    </div>
+    <div>
+      <label>Contact: </label>
+      <input ngModel name="userContact" required [ngModel]="userDetails.contact">
+    </div>
+    <div>
+      <button class="action-button text-button" type="submit" [disabled]="!editUserFrom.valid">Save</button>
+      <button class="action-button text-button cancel-button" (click)="editUserMode = false">Cancel</button>
+    </div>
+  </form>
+</div>
+
 <div *ngIf="company">
   <div class="info">
     <h1>{{ company.name }}</h1>
     <div>Address: {{ company.address }}</div>
     <div>Contact: {{ company.contact }}</div>
   </div>
+
+  <!-- <div *ngIf="!userDetails || isEmployee()">
+    <h2>Income for period:</h2>
+    <label for="from">From:</label>
+    <input type="date" id="from" name="from">
+
+    <label for="to">To:</label>
+    <input type="date" id="to" name="to">
+    <button (click)="calculate()">Calculate</button>
+  </div> -->
 
   <app-office [companyId]="company.id" [userDetails]="userDetails"></app-office>
   <app-employee *ngIf="getEmployeeVisibility()" [companyId]="company.id"></app-employee>

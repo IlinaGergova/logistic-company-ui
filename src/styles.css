@@ -41,12 +41,14 @@
 .add-button:hover,
 .text-button:hover,
 .cancel-button:hover {
+  cursor: pointer;
   color: rgb(59, 113, 188);
 }
 
 .add-button:disabled,
 .text-button:disabled,
 .cancel-button:disabled {
+  cursor: none;
   color: rgb(138, 185, 251);
 }
 
@@ -55,11 +57,13 @@
 }
 
 .mark-button:hover {
+  cursor: pointers;
   color: rgb(28, 144, 161);
 }
 
 .mark-button:disabled {
-  color: rgb(189, 238, 245);
+  cursor: none;
+  color: rgb(128 142 145)
 }
 
 label {

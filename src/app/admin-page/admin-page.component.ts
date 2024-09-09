@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../login-page/login-page.service';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import { Role } from '../login-page/user';
-import { AdminComponent } from '../admin/admin.component';
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css']
+  selector: 'app-admin-page',
+  templateUrl: './admin-page.component.html',
+  styleUrls: ['./admin-page.component.css']
 })
-export class HomePageComponent {
+export class AdminPageComponent {
   public username = '';
 
   constructor(public loginService: LoginService) {}

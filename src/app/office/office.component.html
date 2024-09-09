@@ -11,7 +11,7 @@
     <div id="office-wrapper" *ngFor="let office of offices">
       <div>
         <div>{{ office.id }}</div>
-        <a [routerLink]="'/office-page/' + office.id">{{ office.name }}</a>
+        <div>{{ office.name }}</div>
         <div>{{ office.address }}</div>
         <div>{{ office.contact }}</div>
         <div>{{ office.info }}</div>

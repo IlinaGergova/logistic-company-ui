@@ -1,12 +1,9 @@
 <ng-container *ngIf="loginService.user | async as user">
-  <div id="header">
+<div id="header">
     <h1>Logistic Companies Managing System</h1>
     <div id="userLogout">
       <h1>{{ user.username }}</h1>
       <button (click)="logout()">Logout</button>
     </div>
   </div>
-  <ng-container *ngIf="user.role === role.Admin">
-    <app-admin></app-admin>
-  </ng-container>
 </ng-container>

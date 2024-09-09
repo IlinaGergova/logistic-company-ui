@@ -13,7 +13,7 @@
   <div id="employee-wrapper" *ngFor="let employee of employees">
     <div>
       <div>{{ employee.id }}</div>
-      <a [routerLink]="'/employee/' + employee.name">{{ employee.name }}</a>
+      <div>{{ employee.name }}</div>
       <div>{{ employee.address }}</div>
       <div>{{ employee.contact }}</div>
       <div>{{ positions[employee.position] }}</div>

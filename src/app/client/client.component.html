@@ -11,7 +11,7 @@
   <div id="client-wrapper" *ngFor="let client of clients">
     <div>
       <div>{{ client.id }}</div>
-      <a [routerLink]="'/client/' + client.name">{{ client.name }}</a>
+      <div>{{ client.name }}</div>
       <div>{{ client.address }}</div>
       <div>{{ client.contact }}</div>
       <div *ngIf="hasAccess()">

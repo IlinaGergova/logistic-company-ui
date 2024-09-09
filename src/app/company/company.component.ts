@@ -6,9 +6,13 @@ import { switchMap, of } from 'rxjs';
 import { isEmpty } from 'lodash';
 import { UserService } from '../login-page/user.service';
 import { LoginService } from '../login-page/login-page.service';
-import { Role } from '../login-page/user';
+import { Position, Role } from '../login-page/user';
 import { Client } from '../client/client';
 import { Employee } from '../employee/employee';
+import { Office } from '../office/office';
+import { NgForm } from '@angular/forms';
+import { ClientService } from '../client/client.service';
+import { EmployeeService } from '../employee/employee.service';
 
 @Component({
   selector: 'app-company',
@@ -18,11 +22,16 @@ import { Employee } from '../employee/employee';
 export class CompanyComponent implements OnInit {
   company: Company;
   userDetails: Employee | Client;
+  office: Office;
+  position: string;
+  editUserMode = false;
 
   constructor(
     private companyService: CompanyService,
     private loginService: LoginService,
     private userSerivce: UserService,
+    private clientService: ClientService,
+    private employeeService: EmployeeService,
     private route: ActivatedRoute,
   ) { }
 
@@ -38,6 +47,10 @@ export class CompanyComponent implements OnInit {
       next: company => this.company = company,
     })
 
+    this.getUser();
+  }
+
+  public getUser(): void {
     const user = this.loginService.user.getValue();
     if (user.role === Role.Employee) {
       this.userSerivce.getEmployeeByUser(user.id).subscribe(employee => this.userDetails = employee);
@@ -53,5 +66,50 @@ export class CompanyComponent implements OnInit {
 
   public getClientVisibility(): boolean {
     return !this.userDetails || 'position' in this.userDetails
+  }
+
+  public isEmployee(): boolean {
+    if(this.userDetails && 'position' in this.userDetails) {
+      this.office = this.userDetails.office;
+      this.position = Position[this.userDetails.position];
+      return true;
+    }
+    return false;
+  }
+
+  public isCourier(): boolean {
+    if(this.userDetails
+      && 'position' in this.userDetails
+      && !('office' in this.userDetails)
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  public editUser(form: NgForm): void {
+    if(this.isEmployee()) {
+      this.employeeService.updateEmployee(
+        (this.userDetails as Employee).id,
+        form.value.userName,
+        form.value.userAddress,
+        form.value.userContact,
+        (this.userDetails as Employee).office.id
+      ).subscribe({
+        next: () => this.getUser(),
+      })
+    } else {
+      this.clientService.updateClient(
+        (this.userDetails as Client).id,
+        form.value.userName,
+        form.value.userAddress,
+        form.value.userContact,
+      ).subscribe({
+        next: () => this.getUser(),
+      })
+    }
+    
+    form.reset();
+    this.editUserMode = false;
   }
 }
