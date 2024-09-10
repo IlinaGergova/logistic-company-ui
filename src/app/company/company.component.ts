@@ -13,6 +13,7 @@ import { Office } from '../office/office';
 import { NgForm } from '@angular/forms';
 import { ClientService } from '../client/client.service';
 import { EmployeeService } from '../employee/employee.service';
+import { OrderService } from '../order/order.service';
 
 @Component({
   selector: 'app-company',
@@ -25,6 +26,7 @@ export class CompanyComponent implements OnInit {
   office: Office;
   position: string;
   editUserMode = false;
+  income = -1;
 
   constructor(
     private companyService: CompanyService,
@@ -32,6 +34,7 @@ export class CompanyComponent implements OnInit {
     private userSerivce: UserService,
     private clientService: ClientService,
     private employeeService: EmployeeService,
+    private orderService: OrderService,
     private route: ActivatedRoute,
   ) { }
 
@@ -111,5 +114,11 @@ export class CompanyComponent implements OnInit {
     
     form.reset();
     this.editUserMode = false;
+  }
+
+  public calculate(form: NgForm): void {
+    this.orderService.getIncomeForPeriod(this.company.id, form.value.from, form.value.to).subscribe(
+      res => this.income = res
+    )
   }
 }

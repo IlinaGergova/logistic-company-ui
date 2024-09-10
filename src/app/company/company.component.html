@@ -37,15 +37,20 @@
     <div>Contact: {{ company.contact }}</div>
   </div>
 
-  <!-- <div *ngIf="!userDetails || isEmployee()">
-    <h2>Income for period:</h2>
-    <label for="from">From:</label>
-    <input type="date" id="from" name="from">
+  <div *ngIf="!userDetails || isEmployee()">
 
-    <label for="to">To:</label>
-    <input type="date" id="to" name="to">
-    <button (click)="calculate()">Calculate</button>
-  </div> -->
+    <form (ngSubmit)="calculate(calculateIncomeFrom)" #calculateIncomeFrom="ngForm">
+      <h2>Income for period:</h2>
+      <label for="from">From:</label>
+      <input type="date" id="from" name="from" ngModel #dateInput>
+      <br>
+      <label for="to">To:</label>
+      <input type="date" id="to" name="to" ngModel [min]="dateInput.value">
+      <button class="action-button text-button" type="submit" [disabled]="!calculateIncomeFrom.valid">Calculate</button>
+    </form>
+
+    <span id="income" *ngIf="income > -1">Income: <b>{{ income }}</b></span>
+  </div>
 
   <app-office [companyId]="company.id" [userDetails]="userDetails"></app-office>
   <app-employee *ngIf="getEmployeeVisibility()" [companyId]="company.id"></app-employee>

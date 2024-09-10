@@ -171,7 +171,6 @@ export class OrderComponent implements OnInit {
       next: () => this.getOrders(),
       error: err => this.error = err
     })
-    // this.editOrderMode = false;
   }
 
   public editOrder(form: NgForm, orderId: number): void {

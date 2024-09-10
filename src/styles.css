@@ -48,7 +48,7 @@
 .add-button:disabled,
 .text-button:disabled,
 .cancel-button:disabled {
-  cursor: none;
+  cursor: initial;
   color: rgb(138, 185, 251);
 }
 
@@ -62,7 +62,7 @@
 }
 
 .mark-button:disabled {
-  cursor: none;
+  cursor: initial;
   color: rgb(128 142 145)
 }
 

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Company } from './company';
 
@@ -9,7 +8,7 @@ import { Company } from './company';
 })
 export class CompanyService {
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
   public getCompanyById(id: number): Observable<Company> {
     return this.http.get<Company>(

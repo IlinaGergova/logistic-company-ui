@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 import { Order } from './order';
 
 @Injectable({
@@ -126,4 +126,22 @@ export class OrderService {
       {headers: {"Authorization": "Bearer " + token}}
     )
   }
+
+  public getIncomeForPeriod(companyId: number, fromDate: Date, toDate: Date): Observable<number> {
+    const params = new HttpParams()
+      .append('companyId', companyId)
+      .append('fromDate', fromDate.toString())
+      .append('toDate', toDate.toString());
+
+    const token: string = JSON.parse(localStorage.getItem('userData')).token;
+    return this.http.get<Order[]>(
+       'http://localhost:3000/orders-for-period',
+       {headers: {"Authorization": "Bearer " + token}, params}
+    ).pipe(switchMap(orders => {
+      let sum = 0
+      orders.map(order => sum += +order.price);
+      return of(sum);
+    }))
+  }
+
 }
