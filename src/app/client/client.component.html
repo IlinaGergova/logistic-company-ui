@@ -24,19 +24,19 @@
     <form (ngSubmit)="editClient(editClientFrom, currentEditClient.id)" #editClientFrom="ngForm">
       <div>
         <label>Name: </label>
-        <input name="clientName" required [ngModel]="currentEditClient.name">
+        <input name="clientName" type="text" required [ngModel]="currentEditClient.name" minlength="2">
       </div>
       <div>
         <label>Address: </label>
-        <input ngModel name="clientAddress" required [ngModel]="currentEditClient.address">
+        <input ngModel name="clientAddress" required [ngModel]="currentEditClient.address" minlength="5">
       </div>
       <div>
         <label>Contact: </label>
-        <input ngModel name="clientContact" required [ngModel]="currentEditClient.contact">
+        <input ngModel name="clientContact" required [ngModel]="currentEditClient.contact" minlength="5">
       </div>
       <div>
         <button class="action-button text-button" type="submit" [disabled]="!editClientFrom.valid">Save</button>
-        <button class="action-button text-button cancel-button" (click)="editClientMode = false">Cancel</button>
+        <button class="action-button cancel-button" (click)="editClientMode = false">Cancel</button>
       </div>
     </form>
     <div *ngIf="error">{{ error }}</div>
@@ -49,23 +49,23 @@
   <form (ngSubmit)="createClientForm(createClientFrom)" #createClientFrom="ngForm">
     <div>
       <label>Name: </label>
-      <input ngModel name="clientName" required>
+      <input ngModel type="text" name="clientName" required minlength="2">
     </div>
     <div>
       <label>Address: </label>
-      <input ngModel name="clientAddress" required>
+      <input ngModel name="clientAddress" required minlength="5">
     </div>
    <div>
       <label>Contact: </label>
-      <input ngModel name="clientContact" required>
+      <input ngModel name="clientContact" required minlength="5">
    </div>
    <div>
         <label>Username: </label>
-        <input ngModel name="clientUsername" required>
+        <input ngModel name="clientUsername" required minlength="5">
     </div>
     <div>
         <label>Password: </label>
-        <input ngModel name="clientPassword" required>
+        <input ngModel type="password" name="clientPassword" required minlength="5">
     </div>
     <div>
       <button class="action-button text-button" type="submit" [disabled]="!createClientFrom.valid">Create</button>

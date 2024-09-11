@@ -26,19 +26,19 @@
       <form (ngSubmit)="editOfficeForm(editOfficeFrom, currentEditOffice.id)" #editOfficeFrom="ngForm">
         <div>
           <label>Name: </label>
-          <input name="officeName" required [ngModel]="currentEditOffice.name">
+          <input type="text" name="officeName" required [ngModel]="currentEditOffice.name" minlength="2">
         </div>
         <div>
           <label>Address: </label>
-          <input ngModel name="officeAddress" required  [ngModel]="currentEditOffice.address">
+          <input ngModel name="officeAddress" required  [ngModel]="currentEditOffice.address" minlength="5">
         </div>
        <div>
         <label>Contact: </label>
-        <input ngModel name="officeContact" required  [ngModel]="currentEditOffice.contact">
+        <input ngModel name="officeContact" required  [ngModel]="currentEditOffice.contact" minlength="5">
        </div>
        <div>
         <label>Info: </label>
-        <input ngModel name="officeInfo" required  [ngModel]="currentEditOffice.info">
+        <input ngModel name="officeInfo" required  [ngModel]="currentEditOffice.info" minlength="2">
        </div>
         <div>
           <button class="action-button text-button" type="submit" [disabled]="!editOfficeFrom.valid">Save</button>
@@ -54,23 +54,23 @@
     <form (ngSubmit)="createOfficeForm(createOfficeFrom)" #createOfficeFrom="ngForm">
         <div>
           <label>Name: </label>
-        <input ngModel name="officeName" required>
+        <input type="text" ngModel name="officeName" required minlength="2">
         </div>
         <div>
           <label>Address: </label>
-          <input ngModel name="officeAddress" required>
+          <input ngModel name="officeAddress" required minlength="5">
         </div>
         <div>
           <label>Contact: </label>
-          <input ngModel name="officeContact" required>
+          <input ngModel name="officeContact" required minlength="5">
         </div>
         <div>
             <label>Info: </label>
-            <input ngModel name="officeInfo" required>
+            <input ngModel name="officeInfo" required minlength="2">
         </div>
       <div>
         <button class="action-button text-button" type="submit" [disabled]="!createOfficeFrom.valid">Create</button>
-        <button class="action-button text-button cancel-button" (click)="cancelOfficeCreation()">Cancel</button>
+        <button class="action-button cancel-button" (click)="cancelOfficeCreation()">Cancel</button>
       </div>
 
       </form>

@@ -24,15 +24,15 @@
     <form (ngSubmit)="editCompany(editCompanyFrom, currentEditCompany.id)" #editCompanyFrom="ngForm">
       <div>
         <label>Name: </label>
-        <input name="companyName" required [(ngModel)]="currentEditCompany.name">
+        <input type="text" name="companyName" required [(ngModel)]="currentEditCompany.name" minlength="2">
       </div>
       <div>
         <label>Address: </label>
-        <input ngModel name="companyAddress" required [(ngModel)]="currentEditCompany.address">
+        <input ngModel name="companyAddress" required [(ngModel)]="currentEditCompany.address" minlength="5">
       </div>
       <div>
         <label>Contact: </label>
-        <input ngModel name="companyContact" required [(ngModel)]="currentEditCompany.contact">
+        <input ngModel name="companyContact" required [(ngModel)]="currentEditCompany.contact" minlength="5">
       </div>
       <div>
         <button class="action-button text-button" type="submit" [disabled]="!editCompanyFrom.valid">Save</button>
@@ -49,19 +49,19 @@
   <form (ngSubmit)="createCompany(createCompanyFrom)" #createCompanyFrom="ngForm">
     <div>
       <label>Name: </label>
-      <input ngModel name="companyName" required>
+      <input type="text" ngModel name="companyName" required minlength="2">
     </div>
     <div>
       <label>Address: </label>
-      <input ngModel name="companyAddress" required>
+      <input ngModel name="companyAddress" required minlength="5">
     </div>
    <div>
       <label>Contact: </label>
-      <input ngModel name="companyContact" required>
+      <input ngModel name="companyContact" required minlength="5">
    </div>
     <div>
       <button class="action-button text-button" type="submit" [disabled]="!createCompanyFrom.valid">Create</button>
-      <button class="action-button text-button cancel-button" (click)="cancelCreation()">Cancel</button>
+      <button class="action-button cancel-button" (click)="cancelCreation()">Cancel</button>
     </div>
   </form>
   <div *ngIf="error">{{ error }}</div>

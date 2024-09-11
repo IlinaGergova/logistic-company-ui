@@ -15,6 +15,11 @@
     <input type="checkbox" id="registered-by-switch" (click)="showHideRegisteredByMe()" name="registered-by-switch" value="registeredBySwitch">
     <label for="registered-by-switch">Registered by me</label><br>
   </div>
+
+  <div *ngIf="isCourier()">
+    <input type="checkbox" id="delivered-by-switch" (click)="showHideDeliveredByMe()" name="delivered-by-switch" value="deliveredBySwitch">
+    <label for="delivered-by-switch">Delivered by me</label><br>
+  </div>
 </h1>
 
 <div id="order-list">
@@ -77,7 +82,7 @@
 
       <div *ngIf="isAddressSelected">
         <label>Address: </label>
-        <input name="orderAddress" required [ngModel]="currentEditOrder.address">
+        <input name="orderAddress" required [ngModel]="currentEditOrder.address" minlength="5">
       </div>
 
       <div *ngIf="isOfficeSelected">
@@ -148,7 +153,7 @@
 
     <div *ngIf="isAddressSelected">
       <label>Address: </label>
-      <input ngModel name="orderAddress" required ngModel>
+      <input ngModel name="orderAddress" required minlength="5">
     </div>
 
     <div *ngIf="isOfficeSelected">
@@ -160,7 +165,7 @@
 
     <div>
       <button class="action-button text-button" type="submit" [disabled]="!createOrderFrom.valid">Create</button>
-      <button class="action-button text-button cancel-button" (click)="cancel()">Cancel</button>
+      <button class="action-button cancel-button" (click)="cancel()">Cancel</button>
     </div>
   </form>
   <div *ngIf="error">{{ error }}</div>

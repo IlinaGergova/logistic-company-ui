@@ -13,15 +13,15 @@
   <form (ngSubmit)="editUser(editUserFrom)" #editUserFrom="ngForm">
     <div>
       <label>Name: </label>
-      <input name="userName" required [ngModel]="userDetails.name">
+      <input type="text" name="userName" required [ngModel]="userDetails.name" minlength="2">
     </div>
     <div>
       <label>Address: </label>
-      <input ngModel name="userAddress" required [ngModel]="userDetails.address">
+      <input ngModel name="userAddress" required [ngModel]="userDetails.address" minlength="5">
     </div>
     <div>
       <label>Contact: </label>
-      <input ngModel name="userContact" required [ngModel]="userDetails.contact">
+      <input ngModel name="userContact" required [ngModel]="userDetails.contact" minlength="5">
     </div>
     <div>
       <button class="action-button text-button" type="submit" [disabled]="!editUserFrom.valid">Save</button>
@@ -42,10 +42,10 @@
     <form (ngSubmit)="calculate(calculateIncomeFrom)" #calculateIncomeFrom="ngForm">
       <h2>Income for period:</h2>
       <label for="from">From:</label>
-      <input type="date" id="from" name="from" ngModel #dateInput>
+      <input type="date" id="from" name="from" ngModel #dateInput required="">
       <br>
       <label for="to">To:</label>
-      <input type="date" id="to" name="to" ngModel [min]="dateInput.value">
+      <input type="date" id="to" name="to" ngModel [min]="dateInput.value" required="">
       <button class="action-button text-button" type="submit" [disabled]="!calculateIncomeFrom.valid">Calculate</button>
     </form>
 

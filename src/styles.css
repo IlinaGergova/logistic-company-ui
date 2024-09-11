@@ -36,20 +36,25 @@
   background-color: white;
   color: rgb(91, 157, 249);
   border-color: rgb(91, 157, 249);
+  font-size: 18px;
 }
 
 .add-button:hover,
-.text-button:hover,
 .cancel-button:hover {
   cursor: pointer;
-  color: rgb(59, 113, 188);
+  color:rgb(61, 124, 212);
+}
+
+.text-button:hover {
+  cursor: pointer;
+  background-color: rgb(59, 113, 188);
 }
 
 .add-button:disabled,
 .text-button:disabled,
 .cancel-button:disabled {
   cursor: initial;
-  color: rgb(138, 185, 251);
+  background-color: rgb(138, 185, 251);
 }
 
 .mark-button {
@@ -69,6 +74,7 @@
 label {
   font-size: 18px;
   font-weight: bold;
+  margin-right: 12px;
 }
 
 input {
@@ -77,6 +83,10 @@ input {
   border: none;
   border-radius: 1rem;
   background-color: rgb(227, 227, 227);
+}
+
+input:invalid {
+  border: 2px solid orangered;
 }
 
 form {

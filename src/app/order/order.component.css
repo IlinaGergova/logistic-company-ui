@@ -1,6 +1,6 @@
 #order-wrapper > div{
   display: grid;
-  grid-template-columns: 10px repeat(11, 7vw);
+  grid-template-columns: 25px repeat(11, 7vw);
   gap: 1.7vw;
   font-size: 1.2rem;
   padding-top: 15px;
@@ -13,7 +13,7 @@
   
   #table-header {
     display: grid;
-    grid-template-columns: 10px repeat(11, 7vw);
+    grid-template-columns: 25px repeat(11, 7vw);
     gap: 1.7vw;
     font-weight: bold;
     border-bottom: 1px solid black;

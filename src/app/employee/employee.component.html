@@ -28,15 +28,15 @@
     <form (ngSubmit)="editEmployee(editEmployeeFrom, currentEditEmployee.id)" #editEmployeeFrom="ngForm">
       <div>
         <label>Name: </label>
-        <input name="employeeName" required [ngModel]="currentEditEmployee.name">
+        <input type="text" name="employeeName" required [ngModel]="currentEditEmployee.name" minlength="2">
       </div>
       <div>
         <label>Address: </label>
-        <input ngModel name="employeeAddress" required [ngModel]="currentEditEmployee.address">
+        <input ngModel name="employeeAddress" required [ngModel]="currentEditEmployee.address" minlength="5">
       </div>
       <div>
         <label>Contact: </label>
-        <input ngModel name="employeeContact" required [ngModel]="currentEditEmployee.contact">
+        <input ngModel name="employeeContact" required [ngModel]="currentEditEmployee.contact" minlength="5">
       </div>
       <div>
         <label for="office">Office: </label>
@@ -59,15 +59,15 @@
   <form (ngSubmit)="createEmployeeForm(createEmployeeFrom)" #createEmployeeFrom="ngForm">
     <div>
       <label>Name: </label>
-      <input ngModel name="employeeName" required>
+      <input type="text" ngModel name="employeeName" required minlength="2">
     </div>
     <div>
       <label>Address: </label>
-      <input ngModel name="employeeAddress" required>
+      <input ngModel name="employeeAddress" required minlength="5">
     </div>
    <div>
       <label>Contact: </label>
-      <input ngModel name="employeeContact" required>
+      <input ngModel name="employeeContact" required minlength="5">
    </div>
    <div>
     <label for="position">Position: </label>
@@ -83,15 +83,15 @@
    </div>
    <div>
         <label>Username: </label>
-        <input ngModel name="employeeUsername" required>
+        <input ngModel name="employeeUsername" required minlength="5">
     </div>
     <div>
         <label>Password: </label>
-        <input ngModel name="employeePassword" required>
+        <input type="password" ngModel name="employeePassword" required minlength="5">
     </div>
     <div>
       <button class="action-button text-button" type="submit" [disabled]="!createEmployeeFrom.valid">Create</button>
-      <button class="action-button text-button cancel-button" (click)="cancelEmployeeCreation()">Cancel</button>
+      <button class="action-button cancel-button" (click)="cancelEmployeeCreation()">Cancel</button>
     </div>
   </form>
   <div *ngIf="error">{{ error }}</div>

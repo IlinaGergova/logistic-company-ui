@@ -54,6 +54,6 @@ export class CompanyService {
       'http://localhost:3000/remove-company',
       {id: id},
       {headers: {"Authorization": "Bearer " + token}}
-    )
+    );
   }
 }

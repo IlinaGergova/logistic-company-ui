@@ -42,6 +42,7 @@ export class OrderComponent implements OnInit {
   pendingSwitch = true;
   receivedSwitch = true;
   registeredBySwitch = false;
+  deliveredBySwitch = false;
 
   constructor(
     private orderService: OrderService,
@@ -120,6 +121,16 @@ export class OrderComponent implements OnInit {
     this.registeredBySwitch = !this.registeredBySwitch;
     if(this.registeredBySwitch) {
       this.shownOrders = this.shownOrders.filter(order => order.officeWorker.id === this.userDetails.id);
+    }
+    else {
+      this.resetTableView()
+    }
+  }
+
+  public showHideDeliveredByMe(): void {
+    this.deliveredBySwitch = !this.deliveredBySwitch;
+    if(this.deliveredBySwitch) {
+      this.shownOrders = this.shownOrders.filter(order => order.courier.id === this.userDetails.id);
     }
     else {
       this.resetTableView()
